@@ -2,12 +2,12 @@
 // Created by Erutan on 04/07/2017.
 //
 
-#ifndef JEUFOURMI_REDUCTION_H
-#define JEUFOURMI_REDUCTION_H
+#ifndef REDUCTION_H
+#define REDUCTION_H
 
 #include <fstream>
 #include <iostream>
-#include "Grid.h"
+
 
 using namespace std;
 

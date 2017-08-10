@@ -1,16 +1,15 @@
 //
-// Created by Erutan on 16/04/2016.
+// Created by Erutan on 14/07/2017.
 //
 
-#ifndef TESTSFML_GRILLE_H
-#define TESTSFML_GRILLE_H
+#ifndef GRID_H
+#define GRID_H
 
-using namespace std;
-
-#include <SFML/Graphics/Color.hpp>
+#include <vector>
 #include <array>
 
-
+#define EMPTY 100
+#define BLOCK 101
 #define PLUS  10
 #define MINUS 11
 #define TIME  12
@@ -20,24 +19,65 @@ enum DIRECTION
     UP, DOWN, LEFT, RIGHT
 };
 
-class Grid : public array<int,44>
+enum TYPE
 {
-public:
-    Grid();
-
-    void changeSelectedCase(DIRECTION d);
-    void changeContentSelectedCase(int content);
-
-    const array<int, 2> &getSelectedCase() const;
-
-    const array<int, 20> &getOp() const;
-
-    void reset();
-
-private:
-    array<int,20> op;
-    array<int,2> selectedCase;
+    GARAM,SUDOKU
 };
 
 
-#endif //TESTSFML_GRILLE_H
+
+class Grid
+{
+
+public:
+
+    struct Case
+    {
+        Case(int x, int y);
+
+        Case(int x, int y, int id);
+
+        int x,y;
+        int id;
+
+        bool operator==(const Case &rhs) const;
+
+        bool operator!=(const Case &rhs) const;
+    };
+
+    Grid(size_t columns, size_t rows, TYPE t);
+
+    void changeSelectedCase(DIRECTION d);
+
+    void changeContentSelectedCase(int content);
+
+    void reset();
+
+    int getContentSelectedCase() const;
+
+    int getContentCase(const Case &c) const;
+
+    int getContentCase(int x,int y) const;
+
+    void setContentCase(const Case &c, int content);
+
+    void setContentCase(int x, int y, int content);
+
+    bool isThisCaseSelected(int x,int y) const;
+
+    size_t getRows() const;
+
+    size_t getColumns() const;
+
+    void display() const;
+
+protected:
+    TYPE type;
+    size_t rows,columns;
+    Case selectedCase;
+    std::unique_ptr<int[]> grid;
+
+};
+
+
+#endif

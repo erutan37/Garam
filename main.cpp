@@ -1,9 +1,5 @@
-#include <SFML/Graphics.hpp>
+
 #include <Controler.h>
-
-#include "Grid.h"
-
-
 
 
 

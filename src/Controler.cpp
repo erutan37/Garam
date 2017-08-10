@@ -3,10 +3,11 @@
 //
 
 #include <SFML/Window/Event.hpp>
+#include <GaramGame.h>
 #include "Controler.h"
 
-Controler::Controler() : game() , view(&game) {
-
+Controler::Controler() : game(new GaramGame) , view() {
+    view.setGame(game.get());
 }
 
 
@@ -26,76 +27,77 @@ void Controler::loop() {
                 switch (event.key.code)
                 {
                     case sf::Keyboard::Up:
-                        game.changeSelectedCase(UP);
+                        game->changeSelectedCase(UP);
                         break;
                     case sf::Keyboard::Down:
-                        game.changeSelectedCase(DOWN);
+                        game->changeSelectedCase(DOWN);
                         break;
                     case sf::Keyboard::Left:
-                        game.changeSelectedCase(LEFT);
+                        game->changeSelectedCase(LEFT);
                         break;
                     case sf::Keyboard::Right:
-                        game.changeSelectedCase(RIGHT);
+                        game->changeSelectedCase(RIGHT);
                         break;
                     case sf::Keyboard::Num1:
-                        game.changeContentSelectedCase(1);
+                        game->changeContentSelectedCase(1);
                         break;
                     case sf::Keyboard::Num2:
-                        game.changeContentSelectedCase(2);
+                        game->changeContentSelectedCase(2);
                         break;
                     case sf::Keyboard::Num3:
-                        game.changeContentSelectedCase(3);
+                        game->changeContentSelectedCase(3);
                         break;
                     case sf::Keyboard::Num4:
-                        game.changeContentSelectedCase(4);
+                        game->changeContentSelectedCase(4);
                         break;
                     case sf::Keyboard::Num5:
-                        game.changeContentSelectedCase(5);
+                        game->changeContentSelectedCase(5);
                         break;
                     case sf::Keyboard::Num6:
-                        game.changeContentSelectedCase(6);
+                        game->changeContentSelectedCase(6);
                         break;
                     case sf::Keyboard::Num7:
-                        game.changeContentSelectedCase(7);
+                        game->changeContentSelectedCase(7);
                         break;
                     case sf::Keyboard::Num8:
-                        game.changeContentSelectedCase(8);
+                        game->changeContentSelectedCase(8);
                         break;
                     case sf::Keyboard::Num9:
-                        game.changeContentSelectedCase(9);
+                        game->changeContentSelectedCase(9);
                         break;
                     case sf::Keyboard::Num0:
-                        game.changeContentSelectedCase(0);
+                        game->changeContentSelectedCase(0);
                         break;
-                        game.changeContentSelectedCase(100);
+                        game->changeContentSelectedCase(100);
                         break;
                     case sf::Keyboard::P :
-                        game.changeContentSelectedCase(PLUS);
+                        game->changeContentSelectedCase(PLUS);
                         break;
                     case sf::Keyboard::M :
-                        game.changeContentSelectedCase(MINUS);
+                        game->changeContentSelectedCase(MINUS);
                         break;
                     case sf::Keyboard::O :
-                        game.changeContentSelectedCase(TIME);
+                        game->changeContentSelectedCase(TIME);
                         break;
                     case sf::Keyboard::BackSpace :
-                        game.changeContentSelectedCase(100);
+                        game->changeContentSelectedCase(100);
                         break;
                     case sf::Keyboard::Return :
-                        game.reduction();
+                        game->reduction();
                         break;
                     case sf::Keyboard::A :
-                        game.result();
+                        game->result();
                         break;
                     case sf::Keyboard::Space:
-                        game.reset();
+                        game->reset();
                         break;
                     default:
 
                         break;
                 }
+                view.display();
             }
-            view.display();
+
         }
 
 

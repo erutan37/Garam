@@ -1,898 +1,178 @@
 //
-// Created by Erutan on 16/04/2016.
+// Created by Erutan on 14/07/2017.
 //
 
+#include <ostream>
+#include <iostream>
 #include "Grid.h"
 
 
-
-Grid::Grid()
-{
-    selectedCase[0] =0;
-    selectedCase[1]=1;
-    for (int &i : *this)
-        i=100;
-    for (int &i : op)
-        i=PLUS;
-
+Grid::Grid(size_t columns, size_t rows, TYPE t) : rows(rows), columns(columns), selectedCase(0,0),
+                                          grid(new int[rows*columns]), type(t){
+    reset();
 
 }
 
 void Grid::changeContentSelectedCase(int content) {
-    if(selectedCase[0] ==0)
-    {
-        if(content==PLUS || content ==MINUS || content == TIME)
-            return;
-        (*this).at(selectedCase[1]-1)=content;
-        return;
-    }
-    if(content!=PLUS && content !=MINUS && content != TIME && content != 100)
-        return;
-    op[selectedCase[1]-1]=content;
-    return;
+    setContentCase(selectedCase,content);
 }
 
 void Grid::changeSelectedCase(DIRECTION d) {
-    if(selectedCase[0]== 0)
+    switch (d)
     {
-        switch (d) {
-            case UP:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[1]=39;
-                        break;
-                    case 2:
-                        selectedCase[1]=40;
-                        break;
-                    case 3:
-                        selectedCase[1]=41;
-                        break;
-                    case 4:
-                        selectedCase[1]=42;
-                        break;
-                    case 5:
-                        selectedCase[1]=43;
-                        break;
-                    case 6:
-                        selectedCase[1]=44;
-                        break;
-                    case 7:
-                        selectedCase[0]=1;
-                        selectedCase[1]=1;
-                        break;
-                    case 8:
-                        selectedCase[0]=1;
-                        selectedCase[1]=3;
-                        break;
-                    case 9:
-                        selectedCase[1]=32;
-                        break;
-                    case 10:
-                        selectedCase[0]=1;
-                        selectedCase[1]=6;
-                        break;
-                    case 11:
-                        selectedCase[0]=1;
-                        selectedCase[1]=8;
-                        break;
-                    case 12:
-                        selectedCase[1]=7;
-                        break;
-                    case 13:
-                        selectedCase[1]=8;
-                        break;
-                    case 14:
-                        selectedCase[1]=10;
-                        break;
-                    case 15:
-                        selectedCase[1]=11;
-                        break;
-                    case 16:
-                        selectedCase[1]=12;
-                        break;
-                    case 17:
-                        selectedCase[1]=2;
-                        break;
-                    case 18:
-                        selectedCase[1]=13;
-                        break;
-                    case 19:
-                        selectedCase[1]=14;
-                        break;
-                    case 20:
-                        selectedCase[1]=5;
-                        break;
-                    case 21:
-                        selectedCase[1]=15;
-                        break;
-                    case 22:
-                        selectedCase[0]=1;
-                        selectedCase[1]=10;
-                        break;
-                    case 23:
-                        selectedCase[0]=1;
-                        selectedCase[1]=11;
-                        break;
-                    case 24:
-                        selectedCase[1]=16;
-                        break;
-                    case 25:
-                        selectedCase[1]=22;
-                        break;
-                    case 26:
-                        selectedCase[1]=18;
-                        break;
-                    case 27:
-                        selectedCase[1]=19;
-                        break;
-                    case 28:
-                        selectedCase[1]=23;
-                        break;
-                    case 29:
-                        selectedCase[1]=21;
-                        break;
-                    case 30:
-                        selectedCase[0]=1;
-                        selectedCase[1]=12;
-                        break;
-                    case 31:
-                        selectedCase[0]=1;
-                        selectedCase[1]=14;
-                        break;
-                    case 32:
-                        selectedCase[1]=9;
-                        break;
-                    case 33:
-                        selectedCase[0]=1;
-                        selectedCase[1]=17;
-                        break;
-                    case 34:
-                        selectedCase[1]=29;
-                        break;
-                    case 35:
-                        selectedCase[1]=30;
-                        break;
-                    case 36:
-                        selectedCase[1]=31;
-                        break;
-                    case 37:
-                        selectedCase[1]=33;
-                        break;
-                    case 38:
-                        selectedCase[1]=34;
-                        break;
-                    case 39:
-                        selectedCase[1]=35;
-                        break;
-                    case 40:
-                        selectedCase[1]=25;
-                        break;
-                    case 41:
-                        selectedCase[1]=36;
-                        break;
-                    case 42:
-                        selectedCase[1]=37;
-                        break;
-                    case 43:
-                        selectedCase[1]=28;
-                        break;
-                    case 44:
-                        selectedCase[1]=38;
-                        break;
-                }break;
-            case DOWN:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[0]=1;
-                        selectedCase[1]=1;
-                        break;
-                    case 2:
-                        selectedCase[1]=17;
-                        break;
-                    case 3:
-                        selectedCase[0]=1;
-                        selectedCase[1]=3;
-                        break;
-                    case 4:
-                        selectedCase[0]=1;
-                        selectedCase[1]=6;
-                        break;
-                    case 5:
-                        selectedCase[1]=20;
-                        break;
-                    case 6:
-                        selectedCase[0]=1;
-                        selectedCase[1]=8;
-                        break;
-                    case 7:
-                        selectedCase[1]=12;
-                        break;
-                    case 8:
-                        selectedCase[1]=13;
-                        break;
-                    case 9:
-                        selectedCase[1]=32;
-                        break;
-                    case 10:
-                        selectedCase[1]=14;
-                        break;
-                    case 11:
-                        selectedCase[1]=15;
-                        break;
-                    case 12:
-                        selectedCase[1]=16;
-                        break;
-                    case 13:
-                        selectedCase[1]=18;
-                        break;
-                    case 14:
-                        selectedCase[1]=19;
-                        break;
-                    case 15:
-                        selectedCase[1]=21;
-                        break;
-                    case 16:
-                        selectedCase[1]=24;
-                        break;
-                    case 17:
-                        selectedCase[0]=1;
-                        selectedCase[1]=10;
-                        break;
-                    case 18:
-                        selectedCase[1]=26;
-                        break;
-                    case 19:
-                        selectedCase[1]=27;
-                        break;
-                    case 20:
-                        selectedCase[0]=1;
-                        selectedCase[1]=11;
-                        break;
-                    case 21:
-                        selectedCase[1]=29;
-                        break;
-                    case 22:
-                        selectedCase[1]=25;
-                        break;
-                    case 23:
-                        selectedCase[1]=28;
-                        break;
-                    case 24:
-                        selectedCase[0]=1;
-                        selectedCase[1]=12;
-                        break;
-                    case 25:
-                        selectedCase[1]=40;
-                        break;
-                    case 26:
-                        selectedCase[0]=1;
-                        selectedCase[1]=14;
-                        break;
-                    case 27:
-                        selectedCase[0]=1;
-                        selectedCase[1]=17;
-                        break;
-                    case 28:
-                        selectedCase[1]=43;
-                        break;
-                    case 29:
-                        selectedCase[0]=1;
-                        selectedCase[1]=19;
-                        break;
-                    case 30:
-                        selectedCase[1]=35;
-                        break;
-                    case 31:
-                        selectedCase[1]=36;
-                        break;
-                    case 32:
-                        selectedCase[1]=9;
-                        break;
-                    case 33:
-                        selectedCase[1]=37;
-                        break;
-                    case 34:
-                        selectedCase[1]=38;
-                        break;
-                    case 35:
-                        selectedCase[1]=39;
-                        break;
-                    case 36:
-                        selectedCase[1]=41;
-                        break;
-                    case 37:
-                        selectedCase[1]=42;
-                        break;
-                    case 38:
-                        selectedCase[1]=44;
-                        break;
-                    case 39:
-                        selectedCase[1]=1;
-                        break;
-                    case 40:
-                        selectedCase[1]=2;
-                        break;
-                    case 41:
-                        selectedCase[1]=3;
-                        break;
-                    case 42:
-                        selectedCase[1]=4;
-                        break;
-                    case 43:
-                        selectedCase[1]=5;
-                        break;
-                    case 44:
-                        selectedCase[1]=6;
-                        break;
-                }break;
-            case LEFT:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[1]=6;
-                        break;
-                    case 2:
-                        selectedCase[0]=1;
-                        selectedCase[1]=2;
-                        break;
-                    case 3:
-                        selectedCase[1]=2;
-                        break;
-                    case 4:
-                        selectedCase[1]=3;
-                        break;
-                    case 5:
-                        selectedCase[0]=1;
-                        selectedCase[1]=7;
-                        break;
-                    case 6:
-                        selectedCase[1]=5;
-                        break;
-                    case 7:
-                        selectedCase[1]=11;
-                        break;
-                    case 8:
-                        selectedCase[1]=7;
-                        break;
-                    case 9:
-                        selectedCase[0]=1;
-                        selectedCase[1]=5;
-                        break;
-                    case 10:
-                        selectedCase[1]=9;
-                        break;
-                    case 11:
-                        selectedCase[1]=10;
-                        break;
-                    case 12:
-                        selectedCase[1]=15;
-                        break;
-                    case 13:
-                        selectedCase[1]=12;
-                        break;
-                    case 14:
-                        selectedCase[1]=13;
-                        break;
-                    case 15:
-                        selectedCase[1]=14;
-                        break;
-                    case 16:
-                        selectedCase[1]=21;
-                        break;
-                    case 17:
-                        selectedCase[0]=1;
-                        selectedCase[1]=4;
-                        break;
-                    case 18:
-                        selectedCase[1]=17;
-                        break;
-                    case 19:
-                        selectedCase[1]=18;
-                        break;
-                    case 20:
-                        selectedCase[0]=1;
-                        selectedCase[1]=9;
-                        break;
-                    case 21:
-                        selectedCase[1]=20;
-                        break;
-                    case 22:
-                        selectedCase[1]=23;
-                        break;
-                    case 23:
-                        selectedCase[1]=22;
-                        break;
-                    case 24:
-                        selectedCase[1]=29;
-                        break;
-                    case 25:
-                        selectedCase[0]=1;
-                        selectedCase[1]=13;
-                        break;
-                    case 26:
-                        selectedCase[1]=25;
-                        break;
-                    case 27:
-                        selectedCase[1]=26;
-                        break;
-                    case 28:
-                        selectedCase[0]=1;
-                        selectedCase[1]=18;
-                        break;
-                    case 29:
-                        selectedCase[1]=28;
-                        break;
-                    case 30:
-                        selectedCase[1]=34;
-                        break;
-                    case 31:
-                        selectedCase[1]=30;
-                        break;
-                    case 32:
-                        selectedCase[0]=1;
-                        selectedCase[1]=16;
-                        break;
-                    case 33:
-                        selectedCase[1]=32;
-                        break;
-                    case 34:
-                        selectedCase[1]=33;
-                        break;
-                    case 35:
-                        selectedCase[1]=38;
-                        break;
-                    case 36:
-                        selectedCase[1]=35;
-                        break;
-                    case 37:
-                        selectedCase[1]=36;
-                        break;
-                    case 38:
-                        selectedCase[1]=37;
-                        break;
-                    case 39:
-                        selectedCase[1]=44;
-                        break;
-                    case 40:
-                        selectedCase[0]=1;
-                        selectedCase[1]=15;
-                        break;
-                    case 41:
-                        selectedCase[1]=40;
-                        break;
-                    case 42:
-                        selectedCase[1]=41;
-                        break;
-                    case 43:
-                        selectedCase[0]=1;
-                        selectedCase[1]=20;
-                        break;
-                    case 44:
-                        selectedCase[1]=43;
-                        break;
-                }break;
-            case RIGHT:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[0]=1;
-                        selectedCase[1]=2;
-                        break;
-                    case 2:
-                        selectedCase[1]=3;
-                        break;
-                    case 3:
-                        selectedCase[1]=4;
-                        break;
-                    case 4:
-                        selectedCase[0]=1;
-                        selectedCase[1]=7;
-                        break;
-                    case 5:
-                        selectedCase[1]=6;
-                        break;
-                    case 6:
-                        selectedCase[1]=1;
-                        break;
-                    case 7:
-                        selectedCase[1]=8;
-                        break;
-                    case 8:
-                        selectedCase[0]=1;
-                        selectedCase[1]=5;
-                        break;
-                    case 9:
-                        selectedCase[1]=10;
-                        break;
-                    case 10:
-                        selectedCase[1]=11;
-                        break;
-                    case 11:
-                        selectedCase[1]=7;
-                        break;
-                    case 12:
-                        selectedCase[1]=13;
-                        break;
-                    case 13:
-                        selectedCase[1]=14;
-                        break;
-                    case 14:
-                        selectedCase[1]=15;
-                        break;
-                    case 15:
-                        selectedCase[1]=12;
-                        break;
-                    case 16:
-                        selectedCase[0]=1;
-                        selectedCase[1]=4;
-                        break;
-                    case 17:
-                        selectedCase[1]=18;
-                        break;
-                    case 18:
-                        selectedCase[1]=19;
-                        break;
-                    case 19:
-                        selectedCase[0]=1;
-                        selectedCase[1]=9;
-                        break;
-                    case 20:
-                        selectedCase[1]=21;
-                        break;
-                    case 21:
-                        selectedCase[1]=16;
-                        break;
-                    case 22:
-                        selectedCase[1]=23;
-                        break;
-                    case 23:
-                        selectedCase[1]=22;
-                        break;
-                    case 24:
-                        selectedCase[0]=1;
-                        selectedCase[1]=13;
-                        break;
-                    case 25:
-                        selectedCase[1]=26;
-                        break;
-                    case 26:
-                        selectedCase[1]=27;
-                        break;
-                    case 27:
-                        selectedCase[0]=1;
-                        selectedCase[1]=18;
-                        break;
-                    case 28:
-                        selectedCase[1]=29;
-                        break;
-                    case 29:
-                        selectedCase[1]=24;
-                        break;
-                    case 30:
-                        selectedCase[1]=31;
-                        break;
-                    case 31:
-                        selectedCase[0]=1;
-                        selectedCase[1]=16;
-                        break;
-                    case 32:
-                        selectedCase[1]=33;
-                        break;
-                    case 33:
-                        selectedCase[1]=34;
-                        break;
-                    case 34:
-                        selectedCase[1]=30;
-                        break;
-                    case 35:
-                        selectedCase[1]=36;
-                        break;
-                    case 36:
-                        selectedCase[1]=37;
-                        break;
-                    case 37:
-                        selectedCase[1]=38;
-                        break;
-                    case 38:
-                        selectedCase[1]=35;
-                        break;
-                    case 39:
-                        selectedCase[0]=1;
-                        selectedCase[1]=15;
-                        break;
-                    case 40:
-                        selectedCase[1]=41;
-                        break;
-                    case 41:
-                        selectedCase[1]=42;
-                        break;
-                    case 42:
-                        selectedCase[0]=1;
-                        selectedCase[1]=20;
-                        break;
-                    case 43:
-                        selectedCase[1]=44;
-                        break;
-                    case 44:
-                        selectedCase[1]=39;
-                        break;
-                }break;
-        }
 
+        case UP: selectedCase.y--; break;
+        case DOWN: selectedCase.y++; break;
+        case LEFT: selectedCase.x--; break;
+        case RIGHT:selectedCase.x++; break;
     }
-    else
-    {
-        switch (d) {
-            case UP:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[0]=0;
-                        selectedCase[1]=1;
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        selectedCase[0]=0;
-                        selectedCase[1]=3;
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        selectedCase[0]=0;
-                        selectedCase[1]=4;
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        selectedCase[0]=0;
-                        selectedCase[1]=6;
-                        break;
-                    case 9:
-                        break;
-                    case 10:
-                        selectedCase[0]=0;
-                        selectedCase[1]=17;
-                        break;
-                    case 11:
-                        selectedCase[0]=0;
-                        selectedCase[1]=20;
-                        break;
-                    case 12:
-                        selectedCase[0]=0;
-                        selectedCase[1]=24;
-                        break;
-                    case 13:
-                        break;
-                    case 14:
-                        selectedCase[0]=0;
-                        selectedCase[1]=26;
-                        break;
-                    case 15:
-                        break;
-                    case 16:
-                        break;
-                    case 17:
-                        selectedCase[0]=0;
-                        selectedCase[1]=27;
-                        break;
-                    case 18:
-                        break;
-                    case 19:
-                        selectedCase[0]=0;
-                        selectedCase[1]=29;
-                        break;
-                    case 20:
-                        break;
-                }break;
-            case DOWN:
-                switch (selectedCase[1]) {
-                    case 1:
-                        selectedCase[0]=0;
-                        selectedCase[1]=7;
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        selectedCase[0]=0;
-                        selectedCase[1]=8;
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        selectedCase[0]=0;
-                        selectedCase[1]=10;
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        selectedCase[0]=0;
-                        selectedCase[1]=11;
-                        break;
-                    case 9:
-                        break;
-                    case 10:
-                        selectedCase[0]=0;
-                        selectedCase[1]=22;
-                        break;
-                    case 11:
-                        selectedCase[0]=0;
-                        selectedCase[1]=23;
-                        break;
-                    case 12:
-                        selectedCase[0]=0;
-                        selectedCase[1]=30;
-                        break;
-                    case 13:
-                        break;
-                    case 14:
-                        selectedCase[0]=0;
-                        selectedCase[1]=31;
-                        break;
-                    case 15:
-                        break;
-                    case 16:
-                        break;
-                    case 17:
-                        selectedCase[0]=0;
-                        selectedCase[1]=33;
-                        break;
-                    case 18:
-                        break;
-                    case 19:
-                        selectedCase[0]=0;
-                        selectedCase[1]=34;
-                        break;
-                    case 20:
-                        break;
-                }break;
-            case LEFT:
-                switch (selectedCase[1]) {
-                    case 1:
-                        break;
-                    case 2:
-                        selectedCase[0]=0;
-                        selectedCase[1]=1;
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        selectedCase[0]=0;
-                        selectedCase[1]=16;
-                        break;
-                    case 5:
-                        selectedCase[0]=0;
-                        selectedCase[1]=8;
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        selectedCase[0]=0;
-                        selectedCase[1]=4;
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        selectedCase[0]=0;
-                        selectedCase[1]=19;
-                        break;
-                    case 10:
-                        break;
-                    case 11:
-                        break;
-                    case 12:
-                        break;
-                    case 13:
-                        selectedCase[0]=0;
-                        selectedCase[1]=24;
-                        break;
-                    case 14:
-                        break;
-                    case 15:
-                        selectedCase[0]=0;
-                        selectedCase[1]=39;
-                        break;
-                    case 16:
-                        selectedCase[0]=0;
-                        selectedCase[1]=31;
-                        break;
-                    case 17:
-                        break;
-                    case 18:
-                        selectedCase[0]=0;
-                        selectedCase[1]=27;
-                        break;
-                    case 19:
-                        break;
-                    case 20:
-                        selectedCase[0]=0;
-                        selectedCase[1]=42;
-                        break;
-                }break;
-            case RIGHT:
-                switch (selectedCase[1]) {
-                    case 1:
-                        break;
-                    case 2:
-                        selectedCase[0]=0;
-                        selectedCase[1]=2;
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        selectedCase[0]=0;
-                        selectedCase[1]=17;
-                        break;
-                    case 5:
-                        selectedCase[0]=0;
-                        selectedCase[1]=9;
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        selectedCase[0]=0;
-                        selectedCase[1]=5;
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        selectedCase[0]=0;
-                        selectedCase[1]=20;
-                        break;
-                    case 10:
-                        break;
-                    case 11:
-                        break;
-                    case 12:
-                        break;
-                    case 13:
-                        selectedCase[0]=0;
-                        selectedCase[1]=25;
-                        break;
-                    case 14:
-                        break;
-                    case 15:
-                        selectedCase[0]=0;
-                        selectedCase[1]=40;
-                        break;
-                    case 16:
-                        selectedCase[0]=0;
-                        selectedCase[1]=32;
-                        break;
-                    case 17:
-                        break;
-                    case 18:
-                        selectedCase[0]=0;
-                        selectedCase[1]=28;
-                        break;
-                    case 19:
-                        break;
-                    case 20:
-                        selectedCase[0]=0;
-                        selectedCase[1]=43;
-                        break;
-                }break;
-
-        }
-
-    }
-
-}
-
-const array<int, 2> &Grid::getSelectedCase() const {
-    return selectedCase;
-}
-
-const array<int, 20> &Grid::getOp() const {
-    return op;
+    selectedCase.y%=rows;
+    selectedCase.x%=columns;
+    
+    if(getContentSelectedCase()==BLOCK)
+        changeSelectedCase(d);
 }
 
 void Grid::reset() {
-    for (int &i : *this)
-        i=100;
-    for (int &i : op)
-        i=PLUS;
+    switch (type)
+    {
+
+        case GARAM:
+            for (int y = 0; y <rows ; ++y)
+                for (int x = 0; x < columns; ++x)
+                    setContentCase(x,y,EMPTY);
+
+
+            for (int x = 0; x < columns; ++x)
+            {
+                if(x!=2 && x!=8)
+                {
+                    setContentCase(x,5,BLOCK);
+                    setContentCase(x,6,BLOCK);
+                }
+            }
+
+            for (int y = 0; y < rows; ++y)
+            {
+                if(y!=2 && y!=9)
+                {
+                    setContentCase(4,y,BLOCK);
+                    setContentCase(5,y,BLOCK);
+                }
+            }
+
+            for (int y = 0; y < rows; ++y)
+                for (int x = 0; x < columns; ++x)
+                    if(x==1 ||x==2||x==7||x==8)
+                        if((y>=1 && y<=3) ||(y>=8 && y<=10))
+                            setContentCase(x,y,BLOCK);
+
+
+
+
+            for(int x=0; x<columns; ++x)
+            {
+                if(x==1 || x==7)
+                {
+                    setContentCase(x,0,PLUS);
+                    setContentCase(x,4,PLUS);
+                    setContentCase(x,7,PLUS);
+                    setContentCase(x,11,PLUS);
+                }
+                if(x==0 || x == 3 || x == 6 || x ==9)
+                {
+                    setContentCase(x,1,PLUS);
+                    setContentCase(x,8,PLUS);
+                }
+                if(x==4)
+                {
+                    setContentCase(x,2,PLUS);
+                    setContentCase(x,9,PLUS);
+                }
+            }
+            setContentCase(2,5,PLUS);
+            setContentCase(8,5,PLUS);
+
+
+            break;
+        case SUDOKU:
+
+
+            break;
+    }
 
 }
 
+int Grid::getContentSelectedCase() const {
+    return getContentCase(selectedCase);
+}
+
+int Grid::getContentCase(const Grid::Case &c) const {
+    return grid[rows*c.x+c.y];
+}
+
+void Grid::setContentCase(const Grid::Case &c, int content) {
+    setContentCase(c.x,c.y,content);
+}
+
+int Grid::getContentCase(int x, int y) const {
+    return getContentCase(Case(x,y));
+}
+
+bool Grid::isThisCaseSelected(int x, int y) const {
+    return (x==selectedCase.x && y==selectedCase.y);
+}
+
+void Grid::setContentCase(int x, int y, int content) {
+    if(grid[rows*x+y]==BLOCK)
+    {
+
+    }
+    grid[rows*x+y]=content;
+}
+
+size_t Grid::getRows() const {
+    return rows;
+}
+
+size_t Grid::getColumns() const {
+    return columns;
+}
+
+void Grid::display() const {
+    std::cout << std::endl;
+    for (int y = 0; y < rows; ++y) {
+        std::cout << std::endl;
+        for (int x = 0; x < columns; ++x)
+        {
+            switch(getContentCase(x,y))
+            {
+                case EMPTY: std::cout << "X";
+                    break;
+                case BLOCK: std::cout <<" ";
+                    break;
+                case PLUS: std::cout<<"+";
+                    break;
+                case MINUS: std::cout<<"-";
+                    break;
+                case TIME: std::cout<<"*";
+                    break;
+                default:std::cout<<getContentCase(x,y);
+            }
+        }
+    }
+}
+
+
+Grid::Case::Case(int x, int y) : x(x), y(y), id(-1) {}
+
+bool Grid::Case::operator==(const Grid::Case &rhs) const {
+    return x == rhs.x &&
+           y == rhs.y;
+}
+
+bool Grid::Case::operator!=(const Grid::Case &rhs) const {
+    return !(rhs == *this);
+}
+
+Grid::Case::Case(int x, int y, int id) : x(x), y(y), id(id) {}

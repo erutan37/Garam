@@ -27,7 +27,7 @@ file(
 include_directories(${CMAKE_SOURCE_DIR}/includes)
 
 set (EXECUTABLE_NAME "Garam")
-add_executable(${EXECUTABLE_NAME} ${INCLUDES_FILES} ${SOURCE_FILES} main.cpp src/Reduction.cpp includes/Reduction.h)
+add_executable(${EXECUTABLE_NAME} ${INCLUDES_FILES} ${SOURCE_FILES} main.cpp)
 
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

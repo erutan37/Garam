@@ -1,36 +1,37 @@
 //
-// Created by Erutan on 17/04/2016.
+// Created by Erutan on 14/07/2017.
 //
 
-#ifndef JEUFOURMI_GAME_H
-#define JEUFOURMI_GAME_H
+#ifndef GAME_H
+#define GAME_H
 
 
-#include <vector>
+#include <memory>
 #include "Grid.h"
 
-class Game
-{
-    Grid grid;
-    array<int,24> strategicCases;
 
-    void completeGap();
+class Game {
 
-
+protected:
+    std::unique_ptr<Grid> grid;
 
 public:
-    Game();
+    Game(Grid * g);
+
+    Grid & getGrid() const;
 
     void changeSelectedCase(DIRECTION d);
-    void changeContentSelectedCase(int content);
 
-    void reduction();
+    virtual void changeContentSelectedCase(int content)=0;
 
-    void result();
+    virtual void reduction()=0;
+
+    virtual void result()=0;
 
     void reset();
 
-    const Grid & getGrid() const;
+
+
 };
 
 

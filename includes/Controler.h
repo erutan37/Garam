@@ -2,15 +2,17 @@
 // Created by Erutan on 17/04/2016.
 //
 
-#ifndef JEUFOURMI_CONTROLER_H
-#define JEUFOURMI_CONTROLER_H
+#ifndef CONTROLER_H
+#define CONTROLER_H
 
 
-#include "View.h"
+#include "GaramView.h"
+
+using namespace std;
 
 class Controler {
-    View view;
-    Game game;
+    GaramView view;
+    unique_ptr<Game> game;
 
 
 public:
