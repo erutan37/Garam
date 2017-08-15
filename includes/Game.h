@@ -20,9 +20,9 @@ public:
 
     Grid & getGrid() const;
 
-    void changeSelectedCase(DIRECTION d);
+    virtual void changeSelectedCase(DIRECTION d);
 
-    virtual void changeContentSelectedCase(int content)=0;
+    virtual void changeContentSelectedCase(int content);
 
     virtual void reduction()=0;
 

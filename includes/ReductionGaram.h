@@ -2,8 +2,8 @@
 // Created by Erutan on 04/07/2017.
 //
 
-#ifndef REDUCTION_H
-#define REDUCTION_H
+#ifndef REDUCTION_GARAM_H
+#define REDUCTION_GARAM_H
 
 #include <fstream>
 #include <iostream>
@@ -12,7 +12,7 @@
 using namespace std;
 
 
-class Reduction {
+class ReductionGaram {
 public:
     static int getId(int nbCase, int value);
     static void onlyOneValue(ofstream &file, int nbCase);

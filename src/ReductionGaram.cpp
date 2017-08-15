@@ -2,11 +2,11 @@
 // Created by Erutan on 04/07/2017.
 //
 
-#include "Reduction.h"
+#include "ReductionGaram.h"
 
 
 
-void Reduction::onlyOneValue(ofstream &file, int nbCase) {
+void ReductionGaram::onlyOneValue(ofstream &file, int nbCase) {
     for (int i = 0; i <10 ; ++i)
     {
         file << getId(nbCase,i) << " ";
@@ -23,22 +23,21 @@ void Reduction::onlyOneValue(ofstream &file, int nbCase) {
 
 }
 
-void Reduction::forceValueInCase(ofstream &file, int nbCase, int value) {
+void ReductionGaram::forceValueInCase(ofstream &file, int nbCase, int value) {
     if (value==100)
         return;
-
 
     file << getId(nbCase,value) << " ";
     file << " 0\n";
 }
 
-int Reduction::getId(int nbCase, int value) {
+int ReductionGaram::getId(int nbCase, int value) {
     if (value ==0)
         return (nbCase+1)*10;
     return nbCase*10+value;
 }
 
-void Reduction::operationPlusMinus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
+void ReductionGaram::operationPlusMinus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
     if(intermediateValue==100)
     {
         for (int i = 1; i < 10; ++i) {
@@ -58,7 +57,7 @@ void Reduction::operationPlusMinus10(ofstream &file, int nbCase1, int nbCase2, i
 
 }
 
-void Reduction::operationMinus(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
+void ReductionGaram::operationMinus(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
 
     if(intermediateValue==100)
     {
@@ -79,7 +78,7 @@ void Reduction::operationMinus(ofstream &file, int nbCase1, int nbCase2, int int
 
 }
 
-void Reduction::operationPlusPlus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
+void ReductionGaram::operationPlusPlus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
     if(intermediateValue==100) {
         file << "-" <<getId(nbCase1,0) <<" 0\n";
         for (int i = 1; i < 10; ++i)
@@ -107,7 +106,7 @@ void Reduction::operationPlusPlus10(ofstream &file, int nbCase1, int nbCase2, in
 
 }
 
-void Reduction::operationPlusTwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
+void ReductionGaram::operationPlusTwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
     file << "-" << getId(nbCase1,0) <<" 0\n";
     file << "-" << getId(nbCase2,0) <<" 0\n";
 
@@ -138,7 +137,7 @@ void Reduction::operationPlusTwoCases(ofstream &file, int nbCase1, int nbCase2, 
     }
 }
 
-void Reduction::operationTimeMinus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
+void ReductionGaram::operationTimeMinus10(ofstream &file, int nbCase1, int nbCase2, int intermediateValue) {
     if(intermediateValue==100)
     {
         for (int i = 0; i < 10; ++i)
@@ -165,7 +164,7 @@ void Reduction::operationTimeMinus10(ofstream &file, int nbCase1, int nbCase2, i
     }
 }
 
-void Reduction::operationPlusMinus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
+void ReductionGaram::operationPlusMinus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
 
     for (int i = 0; i < 10; ++i)
     {
@@ -194,7 +193,7 @@ void Reduction::operationPlusMinus10TwoCases(ofstream &file, int nbCase1, int nb
     }
 }
 
-void Reduction::operationTimeMinus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
+void ReductionGaram::operationTimeMinus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
 
     for (int i = 0; i < 10; ++i)
     {
@@ -226,7 +225,7 @@ void Reduction::operationTimeMinus10TwoCases(ofstream &file, int nbCase1, int nb
     }
 }
 
-void Reduction::operationTimePlus10(ofstream &file, int nbCase1, int nbCase2,
+void ReductionGaram::operationTimePlus10(ofstream &file, int nbCase1, int nbCase2,
                                     int intermediateValue1, int intermediateValue2) {
     if(intermediateValue1==100) {
         file << "-" << getId(nbCase1,0)<< " 0\n"; ;
@@ -281,7 +280,7 @@ void Reduction::operationTimePlus10(ofstream &file, int nbCase1, int nbCase2,
 }
 
 void
-Reduction::operationTimePlus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3, int intermediateValue) {
+ReductionGaram::operationTimePlus10TwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3, int intermediateValue) {
 
 
     if(intermediateValue != 100)
@@ -373,7 +372,7 @@ Reduction::operationTimePlus10TwoCases(ofstream &file, int nbCase1, int nbCase2,
 
 }
 
-void Reduction::operationMinusTwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
+void ReductionGaram::operationMinusTwoCases(ofstream &file, int nbCase1, int nbCase2, int nbCase3) {
 
     for (int i = 0; i < 10; ++i)
     {

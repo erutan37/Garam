@@ -3,9 +3,7 @@
 //
 
 #include "GaramGame.h"
-#include "Reduction.h"
-#include <fstream>
-#include <iostream>
+#include "ReductionGaram.h"
 
 
 #define Case Grid::Case
@@ -70,8 +68,8 @@ void GaramGame::reduction() {
         file <<"c\n";
         file << "p cnf 200 500\n";
         for (int i = 0; i < 24; ++i) {
-            Reduction::onlyOneValue(file, i);
-            Reduction::forceValueInCase(file,i,grid->getContentCase(strategicCases[i]));
+            ReductionGaram::onlyOneValue(file, i);
+            ReductionGaram::forceValueInCase(file,i,grid->getContentCase(strategicCases[i]));
         }
 
 
@@ -81,18 +79,18 @@ void GaramGame::reduction() {
             {
                 case PLUS :
                     if(a[2].id==-1)
-                        Reduction::operationPlusMinus10(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
-                    else Reduction::operationPlusMinus10TwoCases(file,a[0].id,a[2].id,a[3].id);
+                        ReductionGaram::operationPlusMinus10(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
+                    else ReductionGaram::operationPlusMinus10TwoCases(file,a[0].id,a[2].id,a[3].id);
                     break;
                 case MINUS:
                     if(a[2].id==-1)
-                        Reduction::operationMinus(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
-                    else Reduction::operationMinusTwoCases(file,a[0].id,a[2].id,a[3].id);
+                        ReductionGaram::operationMinus(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
+                    else ReductionGaram::operationMinusTwoCases(file,a[0].id,a[2].id,a[3].id);
                     break;
                 case TIME:
                     if(a[2].id==-1)
-                        Reduction::operationTimeMinus10(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
-                    else Reduction::operationTimeMinus10TwoCases(file,a[0].id,a[2].id,a[3].id);
+                        ReductionGaram::operationTimeMinus10(file,a[0].id,a[3].id,grid->getContentCase(a[2]));
+                    else ReductionGaram::operationTimeMinus10TwoCases(file,a[0].id,a[2].id,a[3].id);
                     break;
             }
         }
@@ -103,16 +101,16 @@ void GaramGame::reduction() {
            {
                case PLUS :
                    if(a[2].id==-1)
-                       Reduction::operationPlusPlus10(file,a[0].id,a[4].id,grid->getContentCase(a[2]));
-                   else Reduction::operationPlusTwoCases(file,a[0].id,a[2].id,a[4].id);
+                       ReductionGaram::operationPlusPlus10(file,a[0].id,a[4].id,grid->getContentCase(a[2]));
+                   else ReductionGaram::operationPlusTwoCases(file,a[0].id,a[2].id,a[4].id);
                    break;
                case MINUS:
                    break;
                case TIME:
                    if(a[2].id==-1)
-                       Reduction::operationTimePlus10(file,a[0].id,a[4].id,grid->getContentCase(a[2]),
+                       ReductionGaram::operationTimePlus10(file,a[0].id,a[4].id,grid->getContentCase(a[2]),
                                                       grid->getContentCase(a[3]));
-                   else Reduction::operationTimePlus10TwoCases(file,a[0].id,a[2].id,a[4].id,grid->getContentCase(a[3]));
+                   else ReductionGaram::operationTimePlus10TwoCases(file,a[0].id,a[2].id,a[4].id,grid->getContentCase(a[3]));
                    break;
            }
        }

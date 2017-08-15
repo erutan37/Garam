@@ -4,24 +4,27 @@
 
 #include <SFML/Window/Event.hpp>
 #include <GaramGame.h>
+#include <GaramView.h>
+#include <SudokuGame.h>
+#include <SudokuView.h>
 #include "Controler.h"
 
-Controler::Controler() : game(new GaramGame) , view() {
-    view.setGame(game.get());
+Controler::Controler() : game(new GaramGame) , view(new GaramView()) {
+    view->setGame(game.get());
 }
 
 
 void Controler::loop() {
     sf::Clock clock;
     clock.restart();
-    view.display();
-    while(view.getWindow()->isOpen())
+    view->display();
+    while(view->getWindow()->isOpen())
     {
         sf::Event event;
-        while(view.getWindow()->pollEvent(event))
+        while(view->getWindow()->pollEvent(event))
         {
             if(event.type == sf::Event::Closed)
-                view.getWindow()->close();
+                view->getWindow()->close();
             if(event.type == sf::Event::KeyPressed)
             {
                 switch (event.key.code)
@@ -91,11 +94,16 @@ void Controler::loop() {
                     case sf::Keyboard::Space:
                         game->reset();
                         break;
+                    case sf::Keyboard::S:
+                        game.reset(new SudokuGame());
+                        view.reset(new SudokuView());
+                        view->setGame(game.get());
+                        break;
                     default:
 
                         break;
                 }
-                view.display();
+                view->display();
             }
 
         }

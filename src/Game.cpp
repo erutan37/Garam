@@ -20,4 +20,9 @@ void Game::reset() {
     grid->reset();
 }
 
+void Game::changeContentSelectedCase(int content)
+{
+    grid->changeContentSelectedCase(content);
+}
+
 

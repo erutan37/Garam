@@ -6,12 +6,12 @@
 #define CONTROLER_H
 
 
-#include "GaramView.h"
+#include "View.h"
 
 using namespace std;
 
 class Controler {
-    GaramView view;
+    std::unique_ptr<View> view;
     unique_ptr<Game> game;
 
 

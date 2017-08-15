@@ -96,8 +96,9 @@ void Grid::reset() {
 
             break;
         case SUDOKU:
-
-
+            for (int x = 0; x < rows*columns; ++x)
+                grid[x]=EMPTY;
+            
             break;
     }
 
@@ -124,10 +125,6 @@ bool Grid::isThisCaseSelected(int x, int y) const {
 }
 
 void Grid::setContentCase(int x, int y, int content) {
-    if(grid[rows*x+y]==BLOCK)
-    {
-
-    }
     grid[rows*x+y]=content;
 }
 
